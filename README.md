@@ -1,31 +1,7 @@
-# Adonis fullstack application
+# Adonis Task App
 
-This is the fullstack boilerplate for AdonisJs, it comes pre-configured with.
+This is an example Task Application that build with :
 
-1. Bodyparser
-2. Session
-3. Authentication
-4. Web security middleware
-5. CORS
-6. Edge template engine
-7. Lucid ORM
-8. Migrations and seeds
-
-## Setup
-
-Use the adonis command to install the blueprint
-
-```bash
-adonis new yardstick
-```
-
-or manually clone the repo and then run `npm install`.
-
-
-### Migrations
-
-Run the following command to run startup migrations.
-
-```js
-adonis migration:run
-```
+1. <a href='https://adonisjs.com/'>AdonisJS</a> (A NodeJS Web Framework)
+2. <a href='https://bulma.io/'>Bulma CSS Framework</a>
+3. MySQL as Database
