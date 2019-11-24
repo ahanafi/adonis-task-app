@@ -1,0 +1,84 @@
+@layout('master')
+
+@section('content')
+  <div class="box">
+    <h2 class="title">New Task</h2>
+
+    <form action="/tasks" method="POST">
+      {{ csrfField() }}
+
+      <div class="field">
+        <label class="label">Title</label>
+        <div class="control">
+        <input class="input" type="text" placeholder="Title" name="title" required autocomplete="off" value="{{ old('title') }}">
+          {{ elIf('<p class="help is-danger">$self</p>', getErrorFor('title'), hasErrorFor('title')) }}
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Description</label>
+        <div class="control">
+          <textarea class="textarea" name="description" required placeholder="Description" placeholder="Textarea">{{ old('description') }}</textarea>
+          {{ elIf('<p class="help is-danger">$self</p>', getErrorFor('description'), hasErrorFor('description')) }}
+        </div>
+      </div>
+
+      <div class="field is-grouped">
+        <div class="control">
+          <button class="button is-primary" type="submit">Save Now</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  @if(old('notification'))
+    <div class="notification is-success">
+        {{ old('notification') }}
+    </div>
+  @endif
+  <div class="box">
+    <h1 class="title">
+      Task Lists
+    </h1>
+
+    <table class="table is-bordered is-striped is-narrow is-fullwidth">
+      <thead>
+        <tr>
+          <th>SN</th>
+          <th>Title</th>
+          <th>Description</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        @each(task in tasks)
+          <tr>
+            <td>{{ $loop.index + 1 }}</td>
+            <td>{{ task.title }}</td>
+            <td>{{ task.description }}</td>
+            <td>
+              <form action="{{ 'tasks/' + task.id + '?_method=DELETE' }}" method="POST">
+                {{ csrfField() }}
+                <a href="{{ '/tasks/' + task.id + '/edit' }}" class="button is-primary is-outlined">
+                  <span>EDIT</span>
+                  <span class="icon is-small">
+                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                  </span>
+                </a>
+                <button type="submit" class="button is-danger is-outlined" onclick="return confirm('Are your sure want to delete this?')">
+                  <span>DELETE</span>
+                  <span class="icon is-small">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                  </span>
+                </button>
+              </form>
+            </td>
+          </tr>
+        @else
+          <tr>
+            <td colspan="4" class="has-text-centered">No task created yet!</td>
+          </tr>
+        @endeach
+      </tbody>
+    </table>
+  </div>
+@endsection

@@ -1,0 +1,35 @@
+@layout('master')
+
+@section('content')
+  <div class="box">
+    <h2 class="title">New Task</h2>
+
+    <form action="{{ '/tasks/' + task.id + '?_method=PUT' }}" method="POST">
+      {{ csrfField() }}
+
+      <div class="field">
+        <label class="label">Title</label>
+        <div class="control">
+        <input class="input" type="text" placeholder="Title" name="title" required autocomplete="off" value="{{ task.title }}">
+        <input type="hidden" name="_method" value="PUT">
+          {{ elIf('<p class="help is-danger">$self</p>', getErrorFor('title'), hasErrorFor('title')) }}
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Description</label>
+        <div class="control">
+          <textarea class="textarea" name="description" required placeholder="Description" placeholder="Textarea">{{ task.description }}</textarea>
+          {{ elIf('<p class="help is-danger">$self</p>', getErrorFor('description'), hasErrorFor('description')) }}
+        </div>
+      </div>
+
+      <div class="field is-grouped">
+        <div class="control">
+          <button class="button is-primary" type="submit">Update Now</button>
+          <a href="/" class="button is-info">Return Back</a>
+        </div>
+      </div>
+    </form>
+  </div>
+@endsection
